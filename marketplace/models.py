@@ -1,11 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     bio = models.TextField(blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     geolocation = models.CharField(max_length=255, blank=True)  # Neighborhood or area
+
+    groups = models.ManyToManyField(Group, related_name='marketplace_users', blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name='marketplace_users', blank=True)
 
 
 class Listing(models.Model):
@@ -24,6 +27,7 @@ class Listing(models.Model):
 
     seller = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='listings')
     title = models.CharField(max_length=255)
+    slug = models.SlugField(default='-')
     description = models.TextField()
     condition = models.CharField(max_length=50, choices=CONDITION_CHOICES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
