@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.utils import timezone
 
 class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    bio = models.TextField(blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    geolocation = models.CharField(max_length=255, blank=True)  # Neighborhood or area
+    bio = models.TextField(blank=True, null=True,)
+    date_joined = models.DateTimeField(null=True, blank=True, default=timezone.now) # make required later!!
+
+    phone_number = models.CharField(max_length=15, default='000-0000-0000')
+    geolocation = models.CharField(max_length=255, null=True, blank=True)
 
     groups = models.ManyToManyField(Group, related_name='marketplace_users', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='marketplace_users', blank=True)
