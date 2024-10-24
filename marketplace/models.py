@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    bio = models.TextField(blank=True, null=True,)
+    bio = models.TextField(blank=True, null=True,) # maybe make just blank? no null
     date_joined = models.DateTimeField(null=True, blank=True, default=timezone.now) # make required later!!
 
     phone_number = models.CharField(max_length=15, default='000-0000-0000')
