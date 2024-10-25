@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,17 +76,20 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parsimdb',
         'USER': 'root',
-        'PASSWORD': 'Ilive@5680',
+        'PASSWORD': env('DJANGO_DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '3308'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

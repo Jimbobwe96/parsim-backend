@@ -3,6 +3,18 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 
 class User(AbstractUser):
+    """
+    Custom user model extending Django's AbstractUser.
+    
+    Fields:
+        profile_picture (ImageField): Optional image field for user's profile picture.
+        bio (TextField): Optional text field for user bio; can be left blank.
+        date_joined (DateTimeField): The date the user joined; defaults to current time.
+        phone_number (CharField): User's contact number, defaults to placeholder.
+        geolocation (CharField): Optional field for user's location data.
+        groups (ManyToManyField): Group permissions for the user, linked to Django's Group model.
+        user_permissions (ManyToManyField): Direct permissions for the user, linked to Django's Permission model.
+    """
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True,) # maybe make just blank? no null
     date_joined = models.DateTimeField(null=True, blank=True, default=timezone.now) # make required later!!
