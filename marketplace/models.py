@@ -25,6 +25,11 @@ class User(AbstractUser):
     groups = models.ManyToManyField(Group, related_name='marketplace_users', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='marketplace_users', blank=True)
 
+    class Meta:
+        verbose_name = 'Marketplace_User'
+        verbose_name_plural = 'Marketplace_Users'
+        ordering = ['date_joined']
+
 
 class Listing(models.Model):
     """
@@ -54,6 +59,15 @@ class Listing(models.Model):
         ('sold', 'Sold')
     ]
 
+    SIZE_CHOICES = [
+        ('XS', 'X-Small'),
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+        ('XL', 'X-Large'),
+        ('XXL', 'X-X-Large'),
+    ]
+
     seller = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='listings')
     title = models.CharField(max_length=255)
     slug = models.SlugField(default='-')
@@ -64,6 +78,8 @@ class Listing(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='available')
 
+    # NOTE: size choices are dependent on the listing's category! how to do this :pensive:
+    size = models.CharField(max_length=10, choices=SIZE_CHOICES, default='M')
 
     class Meta:
         verbose_name = 'Listing'
