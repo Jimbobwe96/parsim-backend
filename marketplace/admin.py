@@ -20,12 +20,27 @@ class UserAdmin(admin.ModelAdmin):
                    if field.name not in ['id', 'password', 'date_joined']]
   list_per_page = 20
 
-admin.site.register(models.ListingImage)
 
-admin.site.register(models.Category)
+@admin.register(models.ListingImage)
+class ListingImageAdmin(admin.ModelAdmin):
+  pass
 
-admin.site.register(models.Message)
 
-admin.site.register(models.Review)
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+  pass
 
-admin.site.register(models.Notification)
+
+@admin.register(models.Message)
+class MessageAdmin(admin.ModelAdmin):
+  pass
+
+
+@admin.register(models.Review)
+class ReviewAdmin(admin.ModelAdmin):
+  pass
+
+
+@admin.register(models.Notification)
+class NotificationAdmin(admin.ModelAdmin):
+  pass
