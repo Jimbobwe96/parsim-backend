@@ -84,7 +84,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parsimdb',
+        'NAME': 'parsim-backend',
         'USER': 'root',
         'PASSWORD': env('DJANGO_DB_PASSWORD'),
         'HOST': '127.0.0.1',
