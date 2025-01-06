@@ -5,4 +5,4 @@ from django.http import HttpResponse
 # request handler pretty much
 
 def view_listings(request):
-    return HttpResponse('wassup bitch')
+    return HttpResponse('hello world')
